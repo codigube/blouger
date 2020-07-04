@@ -34,6 +34,7 @@ terraform.rc
 
 # Github config
 github.tfvars
+aws.tfvars
 
 # VS Code
 settings.json
