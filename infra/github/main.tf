@@ -1,5 +1,5 @@
 provider "github" {
-  token      = var.github_token
+  token   = var.github_token
   version = "2.9.0"
 }
 
