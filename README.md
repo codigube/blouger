@@ -81,3 +81,10 @@ hugo -D
 ```
 
 The output is a folder named `public` with all the static assets of the site.
+
+### Setup AWS S3 for hosting static website
+
+go to `infra/aws` and run terraform
+
+### Setup Github Action for deploying website to S3
+
