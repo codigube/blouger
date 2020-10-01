@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source: { repository: dwmkerr/terraform-ci }
+
+inputs:
+  - name: source-code
+
+run:
+  path: sh
+  args:
+  - -exc
+  - |
+    ls
+    cd source-code/infra/aws
+    tflint
+    terraform init -upgrade=true
+    terraform fmt
+    terraform validate
