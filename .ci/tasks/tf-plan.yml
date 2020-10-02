@@ -1,0 +1,24 @@
+---
+platform: linux
+
+image_resource:
+  type: registry-image
+  source: { repository: dwmkerr/terraform-ci }
+
+inputs:
+  - name: source-code
+
+params:
+  AWS_ACCESS_KEY: AKIA54R2DUPLUSVLRWVE
+  AWS_SECRET_KEY: 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
+  AWS_REGION: eu-west-1
+
+run:
+  path: sh
+  args:
+  - -exc
+  - |
+    cd source-code/infra/aws
+    echo
+    terraform init -upgrade=true
+    terraform plan -var "aws_access_key=${AWS_ACCESS_KEY}" -var "aws_secret_key=${AWS_SECRET_KEY}" -var "aws_region=${AWS_REGION}"

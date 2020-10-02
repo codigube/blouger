@@ -14,4 +14,6 @@ jobs:
       - task: validate-tf          
         file: source-code/.ci/tasks/tf-validate.yml
         input_mapping: { source-code: source-code }
-         
+      - task: plan-tf
+        file: source-code/.ci/tasks/tf-plan.yml
+        input_mapping: { source-code: source-code }
