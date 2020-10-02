@@ -9,8 +9,8 @@ inputs:
   - name: source-code
 
 params:
-  AWS_ACCESS_KEY: AKIA54R2DUPLUSVLRWVE
-  AWS_SECRET_KEY: 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
+  AWS_ACCESS_KEY:
+  AWS_SECRET_KEY:
   AWS_REGION: eu-west-1
 
 run:
