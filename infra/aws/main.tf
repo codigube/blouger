@@ -1,3 +1,14 @@
+terraform {
+
+  backend "s3" {
+    key            = "cloudrigo/aws.tfstate"
+    bucket         = "tf-backend-terraform-state"
+    dynamodb_table = "tf-backend-terraform-state"
+    acl            = "bucket-owner-full-control"
+    region         = "eu-west-1"
+  }
+}
+
 provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
