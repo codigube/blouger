@@ -3,7 +3,7 @@ platform: linux
 
 image_resource:
   type: registry-image
-  source: { repository: dwmkerr/terraform-ci }
+  source: { repository: hashicorp/terraform}
 
 inputs:
   - name: source-code
@@ -19,6 +19,5 @@ run:
   - -exc
   - |
     cd source-code/infra/aws
-    echo
     terraform init -upgrade=true
     terraform plan -var "aws_access_key=${AWS_ACCESS_KEY}" -var "aws_secret_key=${AWS_SECRET_KEY}" -var "aws_region=${AWS_REGION}"
