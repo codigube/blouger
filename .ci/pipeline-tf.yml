@@ -7,8 +7,8 @@ resources:
   source:
     uri: https://github.com/codigube/blouger.git
     branch: master
-    # works with Github Release not `git tag`
-    tag_filter: v*
+    # Works with Github Release not `git tag`
+    # tag_filter: v*
 
     # paths:
     #   - infra/aws/*
