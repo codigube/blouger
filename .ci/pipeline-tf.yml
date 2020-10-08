@@ -1,32 +1,64 @@
 ---
+resource_types:
+  - name: pull-request
+    type: docker-image
+    source:
+      repository: teliaoss/github-pr-resource
+
 resources:
-- name: source-code
-  type: git
-  icon: github
+# - name: source-code
+#   type: git
+#   icon: github
+#   check_every: 30s
+#   source:
+#     uri: https://github.com/codigube/blouger.git
+#     branch: master
+#     # Works with Github Release not `git tag`
+#     # tag_filter: v*
+
+#     # paths:
+#     #   - infra/aws/*
+
+- name: pr
+  type: pull-request
+  icon: source-pull
   check_every: 30s
   source:
     uri: https://github.com/codigube/blouger.git
-    branch: master
-    # Works with Github Release not `git tag`
-    # tag_filter: v*
 
-    # paths:
-    #   - infra/aws/*
 
 jobs:
-  - name: terraform-job
+  - name: terraform-pr
     plan:
-      - get: source-code
+      - get: pr
         trigger: true
+      - put: pr
+        params:
+          path: pull-request
+          status: pending
       - task: validate-tf          
-        file: source-code/.ci/tasks/tf-validate.yml
-        input_mapping: { source-code: source-code }
+        file: pr/.ci/tasks/tf-validate.yml
+        input_mapping: { source-code: pr }
         params:
           AWS_ACCESS_KEY: ((aws_access_key))
           AWS_SECRET_KEY: ((aws_secret_key))
+        on_failure:
+          put: pr
+          params:
+            path: pull-request
+            status: failure
       - task: plan-tf
-        file: source-code/.ci/tasks/tf-plan.yml
-        input_mapping: { source-code: source-code }
+        file: pr/.ci/tasks/tf-plan.yml
+        input_mapping: { source-code: pr }
         params:
           AWS_ACCESS_KEY: ((aws_access_key))
           AWS_SECRET_KEY: ((aws_secret_key))
+        on_failure:
+          put: pr
+          params:
+            path: pull-request
+            status: failure
+      - put: pr
+        params:
+          path: pull-request
+          status: success
