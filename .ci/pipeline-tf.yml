@@ -6,6 +6,8 @@ resources:
   source:
     uri: https://github.com/codigube/blouger.git/
     branch: master
+    paths:
+      - infra/aws/*
 
 jobs:
   - name: terraform-job
