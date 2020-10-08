@@ -10,10 +10,10 @@ fly -t demo set-pipeline -p pipeline-tf --config pipeline-tf.yml --var aws_acces
 
 ```bash
 # Use shell variables to provide temporary params
-AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-validate.yml -i source-code=../infra/aws
+AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-validate.yml -i source-code=../
 ```
 
 ```bash
 # Use shell variables to provide temporary params
-AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-plan.yml -i source-code=../infra/aws
+AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-plan.yml -i source-code=../
 ```
