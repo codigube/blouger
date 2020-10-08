@@ -47,7 +47,7 @@ resource "aws_s3_bucket" "blouger" {
 EOF
 }
 
-resource "aws_s3_bucket" "blouger2" {
+resource "aws_s3_bucket" "blouger3" {
   bucket = local.s3_bucket_name
 
   acl = "public-read"
