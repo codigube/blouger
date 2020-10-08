@@ -6,19 +6,6 @@ resource_types:
       repository: teliaoss/github-pr-resource
 
 resources:
-# - name: source-code
-#   type: git
-#   icon: github
-#   check_every: 30s
-#   source:
-#     uri: https://github.com/codigube/blouger.git
-#     branch: master
-#     # Works with Github Release not `git tag`
-#     # tag_filter: v*
-
-#     # paths:
-#     #   - infra/aws/*
-
 - name: pr
   type: pull-request
   icon: source-pull
@@ -26,6 +13,24 @@ resources:
   source:
     repository: codigube/blouger
     access_token: ((github_access_token))
+
+- name: master
+  type: git
+  icon: github
+  check_every: 30s
+  source:
+    uri: https://github.com/codigube/blouger.git
+    branch: master
+
+- name: release
+  type: git
+  icon: github
+  check_every: 30s
+  source:
+    uri: https://github.com/codigube/blouger.git
+    branch: master
+    # Works with Github Release not `git tag`
+    tag_filter: v*
 
 jobs:
   - name: terraform-pr
@@ -66,3 +71,35 @@ jobs:
           params:
             path: pr
             status: success
+
+  - name: terraform-master
+    plan:
+      - get: master
+        trigger: true
+
+      - task: validate-tf          
+        file: pr/.ci/tasks/tf-validate.yml
+        input_mapping: { source-code: pr }
+        params:
+          AWS_ACCESS_KEY: ((aws_access_key))
+          AWS_SECRET_KEY: ((aws_secret_key))
+
+      - task: plan-tf
+        file: pr/.ci/tasks/tf-plan.yml
+        input_mapping: { source-code: pr }
+        params:
+          AWS_ACCESS_KEY: ((aws_access_key))
+          AWS_SECRET_KEY: ((aws_secret_key))
+  
+  - name: terraform-deployment
+    plan:
+      - get: release
+        trigger: true
+
+      - task: plan-tf
+        file: pr/.ci/tasks/tf-deploy.yml
+        input_mapping: { source-code: release }
+        params:
+          AWS_ACCESS_KEY: ((aws_access_key))
+          AWS_SECRET_KEY: ((aws_secret_key))
+      
