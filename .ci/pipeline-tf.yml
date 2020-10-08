@@ -78,15 +78,15 @@ jobs:
         trigger: true
 
       - task: validate-tf          
-        file: pr/.ci/tasks/tf-validate.yml
-        input_mapping: { source-code: pr }
+        file: master/.ci/tasks/tf-validate.yml
+        input_mapping: { source-code: master }
         params:
           AWS_ACCESS_KEY: ((aws_access_key))
           AWS_SECRET_KEY: ((aws_secret_key))
 
       - task: plan-tf
-        file: pr/.ci/tasks/tf-plan.yml
-        input_mapping: { source-code: pr }
+        file: master/.ci/tasks/tf-plan.yml
+        input_mapping: { source-code: master }
         params:
           AWS_ACCESS_KEY: ((aws_access_key))
           AWS_SECRET_KEY: ((aws_secret_key))
@@ -97,7 +97,7 @@ jobs:
         trigger: true
 
       - task: plan-tf
-        file: pr/.ci/tasks/tf-deploy.yml
+        file: release/.ci/tasks/tf-deploy.yml
         input_mapping: { source-code: release }
         params:
           AWS_ACCESS_KEY: ((aws_access_key))
