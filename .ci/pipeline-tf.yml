@@ -35,7 +35,7 @@ jobs:
 
       - put: pr
         params:
-          path: pull-request
+          path: pr
           status: pending
 
       - task: validate-tf          
@@ -47,7 +47,7 @@ jobs:
         on_failure:
           put: pr
           params:
-            path: pull-request
+            path: pr
             status: failure
 
       - task: plan-tf
@@ -59,10 +59,10 @@ jobs:
         on_failure:
           put: pr
           params:
-            path: pull-request
+            path: pr
             status: failure
         on_success:
           put: pr
           params:
-            path: pull-request
+            path: pr
             status: success
