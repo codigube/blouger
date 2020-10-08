@@ -11,6 +11,7 @@ jobs:
   - name: terraform-job
     plan:
       - get: source-code
+        trigger: true
       - task: validate-tf          
         file: source-code/.ci/tasks/tf-validate.yml
         input_mapping: { source-code: source-code }
