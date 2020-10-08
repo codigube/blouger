@@ -14,6 +14,10 @@ AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-vali
 ```
 
 ```bash
-# Use shell variables to provide temporary params
 AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-plan.yml -i source-code=../
+```
+
+```bash
+# NOTE: this will perform the deployment for real so make sure you understand the result when testing it
+AWS_ACCESS_KEY=xxx AWS_SECRET_KEY=xxx fly -t demo execute --config tasks/tf-deploy.yml -i source-code=../
 ```
