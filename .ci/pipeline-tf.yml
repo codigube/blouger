@@ -24,18 +24,20 @@ resources:
   icon: source-pull
   check_every: 30s
   source:
-    uri: https://github.com/codigube/blouger.git
-
+    repository: codigube/blouger
+    access_token: ((github_access_token))
 
 jobs:
   - name: terraform-pr
     plan:
       - get: pr
         trigger: true
+
       - put: pr
         params:
           path: pull-request
           status: pending
+
       - task: validate-tf          
         file: pr/.ci/tasks/tf-validate.yml
         input_mapping: { source-code: pr }
@@ -47,6 +49,7 @@ jobs:
           params:
             path: pull-request
             status: failure
+
       - task: plan-tf
         file: pr/.ci/tasks/tf-plan.yml
         input_mapping: { source-code: pr }
@@ -58,7 +61,8 @@ jobs:
           params:
             path: pull-request
             status: failure
-      - put: pr
-        params:
-          path: pull-request
-          status: success
+        on_success:
+          put: pr
+          params:
+            path: pull-request
+            status: success

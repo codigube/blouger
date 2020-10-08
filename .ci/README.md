@@ -3,7 +3,7 @@
 ## Set the Pipeline locally with providing vars
 
 ```bash
-fly -t demo set-pipeline -p pipeline-tf --config pipeline-tf.yml --var aws_access_key=xxx aws_secret_key=xxx
+fly -t demo set-pipeline -p pipeline-tf --config pipeline-tf.yml --var aws_access_key=xxx aws_secret_key=xxx --var github_access_token=xxx
 ```
 
 ## Execute single Task locally with providing params
