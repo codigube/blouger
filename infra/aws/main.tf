@@ -16,7 +16,7 @@ provider "aws" {
 }
 
 locals {
-  s3_bucket_name = "my-blouger-site-bucket"
+            s3_bucket_name = "my-blouger-site-bucket"
 }
 
 resource "aws_s3_bucket" "blouger" {

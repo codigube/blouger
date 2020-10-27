@@ -18,6 +18,7 @@ run:
   args:
   - -exc
   - |
+    set -eo pipefail
     terraform version
     cd source-code/infra/aws
     terraform init -upgrade=true
