@@ -7,7 +7,7 @@ provider "aws" {
 data "aws_caller_identity" "current" {}
 
 module "terraform_init" {
-  source = "git@github.com:codigube/terraform-aws-terraform-init?ref=change-dynamodb-billingmode"
+  source      = "git@github.com:codigube/terraform-aws-terraform-init?ref=change-dynamodb-billingmode"
   name_prefix = "tf-backend"
 
   tags = {

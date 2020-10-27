@@ -19,14 +19,6 @@ resources:
   icon: github
   check_every: 30s
   source:
-    repository: codigube/blouger
-    access_token: ((github_access_token))
-
-- name: master
-  type: git
-  icon: github
-  check_every: 30s
-  source:
     uri: https://github.com/codigube/blouger.git
     branch: master
 
@@ -102,6 +94,7 @@ jobs:
           AWS_SECRET_KEY: ((aws_secret_key))
   
   - name: terraform-deployment
+    serial: true
     plan:
       - get: release
         trigger: true
