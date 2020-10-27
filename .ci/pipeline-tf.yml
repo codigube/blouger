@@ -8,7 +8,15 @@ resource_types:
 resources:
 - name: pr
   type: pull-request
-  icon: source-pull
+  icon: github
+  check_every: 30s
+  source:
+    repository: codigube/blouger
+    access_token: ((github_access_token))
+
+- name: master
+  type: git
+  icon: github
   check_every: 30s
   source:
     repository: codigube/blouger
@@ -34,6 +42,7 @@ resources:
 
 jobs:
   - name: terraform-pr
+    serial: true
     plan:
       - get: pr
         trigger: true
@@ -73,6 +82,7 @@ jobs:
             status: success
 
   - name: terraform-master
+    serial: true
     plan:
       - get: master
         trigger: true
@@ -96,7 +106,7 @@ jobs:
       - get: release
         trigger: true
 
-      - task: plan-tf
+      - task: deploy-tf
         file: release/.ci/tasks/tf-deploy.yml
         input_mapping: { source-code: release }
         params:
