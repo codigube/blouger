@@ -24,5 +24,5 @@ run:
     export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_KEY}"
     cd source-code/infra
     terraform init -upgrade=true
-    terraform fmt -recursive
+    terraform fmt -recursive -check
     terraform validate
